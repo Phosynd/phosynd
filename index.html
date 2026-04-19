@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phosynd — 최관혁</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FAF9F6;
+      --text: #111111;
+      --accent: #0066FF;
+      --secondary: #888888;
+      --card-bg: #F5F5F5;
+      --border: rgba(0, 102, 255, 0.18);
+      --nav-h: 64px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Noto Sans KR', 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(250, 249, 246, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(17,17,17,0.07);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--secondary);
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .lang-toggle {
+      background: none;
+      border: 1px solid rgba(17,17,17,0.2);
+      border-radius: 4px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .lang-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── LAYOUT ── */
+    section {
+      padding: 120px 40px;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--secondary);
+      text-transform: uppercase;
+      margin-bottom: 48px;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: var(--nav-h);
+    }
+
+    .hero-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-ko {
+      font-size: clamp(36px, 6vw, 72px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .hero-en {
+      font-size: clamp(18px, 2.8vw, 32px);
+      font-weight: 400;
+      color: var(--secondary);
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    .hero-scroll {
+      margin-top: 80px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--secondary);
+    }
+
+    .hero-scroll::before {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: var(--secondary);
+      opacity: 0.4;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      border-top: 1px solid rgba(17,17,17,0.07);
+    }
+
+    .about-text {
+      max-width: 640px;
+      font-size: clamp(15px, 1.6vw, 18px);
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .about-text p {
+      margin-bottom: 1.5em;
+    }
+
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .about-text .emphasis {
+      font-weight: 700;
+    }
+
+    /* ── HOW I THINK ── */
+    #think {
+      border-top: 1px solid rgba(17,17,17,0.07);
+    }
+
+    .think-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+    }
+
+    .think-card {
+      padding: 40px 36px;
+      border: 1px solid rgba(17,17,17,0.07);
+    }
+
+    .think-card:nth-child(1) { border-top-left-radius: 8px; }
+    .think-card:nth-child(2) { border-top-right-radius: 8px; }
+    .think-card:nth-child(3) { border-bottom-left-radius: 8px; }
+    .think-card:nth-child(4) { border-bottom-right-radius: 8px; }
+
+    .think-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .think-title {
+      font-size: clamp(18px, 2vw, 22px);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+
+    .think-desc {
+      font-size: 14px;
+      color: var(--secondary);
+      line-height: 1.65;
+    }
+
+    /* ── WORK ── */
+    #work {
+      border-top: 1px solid rgba(17,17,17,0.07);
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .work-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 36px 32px;
+      cursor: pointer;
+      transition: all 0.22s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .work-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 2px; height: 100%;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.22s;
+    }
+
+    .work-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0, 102, 255, 0.09);
+      border-color: rgba(0, 102, 255, 0.35);
+    }
+
+    .work-card:hover::after { opacity: 1; }
+
+    .work-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--secondary);
+      margin-bottom: 16px;
+    }
+
+    .work-title {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+
+    .work-subtitle {
+      font-size: 13px;
+      color: var(--secondary);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .work-metric-main {
+      font-size: clamp(36px, 4vw, 52px);
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .work-metric-sub {
+      font-size: 12px;
+      color: var(--secondary);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    .work-cta {
+      margin-top: 24px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .work-cta svg {
+      transition: transform 0.2s;
+    }
+    .work-card:hover .work-cta svg { transform: translateX(4px); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(17,17,17,0.55);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--bg);
+      border-radius: 14px;
+      max-width: 640px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 52px 52px 48px;
+      position: relative;
+      animation: modalIn 0.28s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(16px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px; right: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--secondary);
+      padding: 8px;
+      line-height: 0;
+      transition: color 0.15s;
+    }
+    .modal-close:hover { color: var(--text); }
+
+    .modal-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .modal-title {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 36px;
+    }
+
+    .modal-section {
+      margin-bottom: 28px;
+    }
+
+    .modal-section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .modal-section-body {
+      font-size: 14px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .modal-section-body p { margin-bottom: 0.5em; }
+    .modal-section-body p:last-child { margin-bottom: 0; }
+
+    .modal-result-grid {
+      display: flex;
+      gap: 32px;
+      margin-top: 4px;
+    }
+
+    .modal-result-item { }
+
+    .modal-result-main {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .modal-result-label {
+      font-size: 12px;
+      color: var(--secondary);
+      margin-top: 4px;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      border-top: 1px solid rgba(17,17,17,0.07);
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+    }
+
+    #contact .container {
+      width: 100%;
+    }
+
+    .contact-heading {
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 48px;
+      max-width: 720px;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .contact-type {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--secondary);
+      text-transform: uppercase;
+    }
+
+    .contact-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-value:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 40px;
+      border-top: 1px solid rgba(17,17,17,0.07);
+      text-align: center;
+      font-size: 12px;
+      color: var(--secondary);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .think-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .think-card:nth-child(1) { border-radius: 8px 8px 0 0; }
+      .think-card:nth-child(2) { border-radius: 0; }
+      .think-card:nth-child(3) { border-radius: 0; }
+      .think-card:nth-child(4) { border-radius: 0 0 8px 8px; }
+
+      .work-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      nav { padding: 0 20px; }
+      section { padding: 80px 20px; }
+
+      .nav-links {
+        display: none;
+      }
+
+      .modal { padding: 36px 28px 32px; }
+
+      .modal-result-grid { flex-wrap: wrap; gap: 20px; }
+
+      .contact-links { gap: 28px; }
+
+      footer { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#hero">Phosynd</a>
+    <ul class="nav-links">
+      <li><a href="#about" data-ko="소개" data-en="About">소개</a></li>
+      <li><a href="#think" data-ko="사고방식" data-en="How I Think">사고방식</a></li>
+      <li><a href="#work" data-ko="경험" data-en="Work">경험</a></li>
+      <li><a href="#contact" data-ko="연락" data-en="Contact">연락</a></li>
+    </ul>
+    <button class="lang-toggle" id="langBtn" onclick="toggleLang()">EN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner container">
+    <h1 class="hero-ko">날카로운 통찰로 판단하고,<br>사람을 움직인다</h1>
+    <p class="hero-en">Sharp insight. Moving people forward.</p>
+    <div class="hero-scroll">SCROLL</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <p class="section-label" data-ko="소개" data-en="About">소개</p>
+    <div class="about-text">
+      <div data-lang="ko">
+        <p>저는 사람의 마음을 바꾸고 싶어서 영상이라는 매체를 선택했습니다.</p>
+        <p>직접 만들고 싶어서 편집을 시작했고,<br>어느새 전문적인 수준이 됐습니다.</p>
+        <p>하지만 항상 더 끌리는 건 제작이 아니라 기획 쪽이었습니다.<br>마케터로 일하면서 그 성향은 더 선명해졌습니다.</p>
+        <p>비효율적인 구조를 발견하면 그냥 넘기지 못했고,<br>AI와 파이썬을 독학해 자동화 시스템을 직접 만들었습니다.<br>300시간짜리 반복 작업이 사라지던 순간,<br>제가 진짜 하고 싶은 일이 무엇인지 알았습니다.</p>
+        <p><span class="emphasis">문제를 정의하고, 구조를 설계하고, 사람을 움직이게 만드는 것.<br>그게 PM이었습니다.</span></p>
+      </div>
+      <div data-lang="en" style="display:none">
+        <p>I chose video as my medium because I wanted to change people's minds.</p>
+        <p>I started editing because I wanted to make things myself,<br>and eventually reached a professional level.</p>
+        <p>But what always pulled me more was not production — it was planning.<br>That tendency became even clearer when I worked as a marketer.</p>
+        <p>Whenever I found an inefficient structure, I couldn't just let it go.<br>I taught myself AI and Python, and built an automation system from scratch.<br>The moment 300 hours of repetitive work disappeared,<br>I knew what I really wanted to do.</p>
+        <p><span class="emphasis">Define the problem. Design the structure. Move people to act.<br>That was PM.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW I THINK -->
+<section id="think">
+  <div class="container">
+    <p class="section-label" data-ko="사고방식" data-en="How I Think">사고방식</p>
+    <div class="think-grid">
+
+      <div class="think-card">
+        <div class="think-num">01</div>
+        <h3 class="think-title" data-ko="문제를 먼저 정의한다" data-en="Define First">문제를 먼저 정의한다</h3>
+        <p class="think-desc" data-ko="잘못된 문제를 열심히 푸는 것만큼 비효율적인 건 없다" data-en="Nothing is more wasteful than solving the wrong problem">잘못된 문제를 열심히 푸는 것만큼 비효율적인 건 없다</p>
+      </div>
+
+      <div class="think-card">
+        <div class="think-num">02</div>
+        <h3 class="think-title" data-ko="근거로 움직인다" data-en="Evidence Over Instinct">근거로 움직인다</h3>
+        <p class="think-desc" data-ko="느낌은 틀릴 수 있지만 데이터는 방향을 잡아준다" data-en="Gut feelings can mislead — data points the way">느낌은 틀릴 수 있지만 데이터는 방향을 잡아준다</p>
+      </div>
+
+      <div class="think-card">
+        <div class="think-num">03</div>
+        <h3 class="think-title" data-ko="직접 만든다" data-en="Build It Yourself">직접 만든다</h3>
+        <p class="think-desc" data-ko="이해와 실행 사이의 거리를 없애는 가장 빠른 방법이다" data-en="The fastest way to eliminate the gap between understanding and doing">이해와 실행 사이의 거리를 없애는 가장 빠른 방법이다</p>
+      </div>
+
+      <div class="think-card">
+        <div class="think-num">04</div>
+        <h3 class="think-title" data-ko="방향을 택한다" data-en="Direction Over Speed">방향을 택한다</h3>
+        <p class="think-desc" data-ko="빠르게 가는 것보다 맞는 곳으로 가는 게 먼저다" data-en="Getting somewhere right matters more than getting somewhere fast">빠르게 가는 것보다 맞는 곳으로 가는 게 먼저다</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="container">
+    <p class="section-label" data-ko="경험" data-en="Work">경험</p>
+    <div class="work-grid">
+
+      <div class="work-card" onclick="openModal('w1')">
+        <div class="work-num">01</div>
+        <h3 class="work-title" data-ko="GMV 자동화" data-en="GMV Automation">GMV 자동화</h3>
+        <p class="work-subtitle" data-ko="반복 업무를 자동화해 팀의 시간을 되돌려줬다" data-en="Automated repetitive work and gave the team their time back">반복 업무를 자동화해 팀의 시간을 되돌려줬다</p>
+        <div class="work-metric-main">99.9%</div>
+        <div class="work-metric-sub" data-ko="작업시간 절감" data-en="Reduction in work hours">작업시간 절감</div>
+        <div class="work-cta">
+          <span data-ko="자세히 보기" data-en="View details">자세히 보기</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7h10M7 2l5 5-5 5" stroke="#0066FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="work-card" onclick="openModal('w2')">
+        <div class="work-num">02</div>
+        <h3 class="work-title" data-ko="매출 전략 전환" data-en="Revenue Strategy Pivot">매출 전략 전환</h3>
+        <p class="work-subtitle" data-ko="원인을 분석하고 전략을 바꿔 매출을 뒤집었다" data-en="Diagnosed the drop, shifted strategy, reversed the numbers">원인을 분석하고 전략을 바꿔 매출을 뒤집었다</p>
+        <div class="work-metric-main">+74.48%</div>
+        <div class="work-metric-sub" data-ko="수익 $616K→$1.07M" data-en="Revenue $616K→$1.07M">수익 $616K→$1.07M</div>
+        <div class="work-cta">
+          <span data-ko="자세히 보기" data-en="View details">자세히 보기</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7h10M7 2l5 5-5 5" stroke="#0066FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="work-card" onclick="openModal('w3')">
+        <div class="work-num">03</div>
+        <h3 class="work-title" data-ko="메타 전환광고" data-en="Meta Performance Ad">메타 전환광고</h3>
+        <p class="work-subtitle" data-ko="데이터 기반으로 제작한 영상이 상위권을 기록했다" data-en="Data-driven video ranked top among 200 ads">데이터 기반으로 제작한 영상이 상위권을 기록했다</p>
+        <div class="work-metric-main" style="font-size: clamp(28px, 3.2vw, 44px);" data-ko="신입 1위" data-en="#1 Newcomer">신입 1위</div>
+        <div class="work-metric-sub" data-ko="메타 전환광고 200개 중 7위" data-en="Top 7 out of 200 Meta ads">메타 전환광고 200개 중 7위</div>
+        <div class="work-cta">
+          <span data-ko="자세히 보기" data-en="View details">자세히 보기</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7h10M7 2l5 5-5 5" stroke="#0066FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <h2 class="contact-heading" data-ko="연락할 이유는 이미 충분히 봤습니다" data-en="You already know why you should reach out.">연락할 이유는 이미 충분히 봤습니다</h2>
+    <div class="contact-links">
+      <div class="contact-item">
+        <span class="contact-type">Email</span>
+        <a class="contact-value" href="mailto:dennett0610@gmail.com">dennett0610@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-type">Phone</span>
+        <a class="contact-value" href="tel:+821055848101">+82 10-5584-8101</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Kwanhyeok Choi — Phosynd</span>
+</footer>
+
+<!-- MODAL OVERLAY -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBg(event)">
+  <div class="modal" id="modalBox">
+    <button class="modal-close" onclick="closeModal()">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+  /* ── MODAL DATA ── */
+  const modals = {
+    w1: {
+      num: '01',
+      ko: {
+        title: 'GMV 자동화',
+        problem: `크리에이터 3만 명의 GMV 데이터를 매주 수작업으로 집계하고 있었다.\n팀 전체가 300시간을 반복 작업에 쏟고 있었고, 그 시간에 전략적 판단은 없었다.`,
+        did: `AI와 파이썬을 독학해 자동화 시스템을 직접 설계하고 구축했다.\n데이터 수집 → 정리 → 보고까지 전 과정을 자동화했다.`,
+        results: [
+          { main: '99.9%', label: '팀 작업시간 절감 (300h → 0h)' },
+          { main: '3만 명', label: '크리에이터 데이터 실시간 관리' },
+        ]
+      },
+      en: {
+        title: 'GMV Automation',
+        problem: `GMV data for 30,000 creators was being compiled manually every week.\nThe entire team was spending 300 hours on repetitive work — with no time left for strategic thinking.`,
+        did: `Taught myself AI and Python, then designed and built an automation system from scratch.\nAutomated the entire pipeline: data collection → organization → reporting.`,
+        results: [
+          { main: '99.9%', label: 'Reduction in team work hours (300h → 0h)' },
+          { main: '30K', label: 'Creator data points managed in real time' },
+        ]
+      }
+    },
+    w2: {
+      num: '02',
+      ko: {
+        title: '매출 전략 전환',
+        problem: `크리에이터 마케팅 기반의 틱톡샵 사업에서 전체 매출 상위권을 담당하던 제품의 매출이 급감했다.\n팀은 원인 파악 없이 신제품 개발에 집중하며 기존 제품을 방치하고 있었다.`,
+        did: `데이터를 분석해 소비자 흥미 저하의 원인을 특정했다.\n겨울 시즌 미국 북부 타겟 전략의 한계임을 발견하고, 미국 남부 지역으로 타겟 전환을 제안했다.\n크리에이터가 실행할 수 있도록 콘텐츠 방향과 가이드를 직접 설계했다.`,
+        results: [
+          { main: '+74.48%', label: 'GMV 성장' },
+          { main: '$1.07M', label: '수익 ($616K에서 전환)' },
+        ]
+      },
+      en: {
+        title: 'Revenue Strategy Pivot',
+        problem: `In a TikTok Shop business driven by creator marketing, a top-selling product experienced a sudden drop in sales.\nThe team was focused on developing new products, leaving the existing one unattended.`,
+        did: `Analyzed data to identify the root cause of declining consumer interest.\nDiscovered the limitation of a winter-season strategy targeting northern U.S. audiences.\nProposed a pivot to target southern U.S. regions instead.\nDesigned content direction and guidelines for creators to execute.`,
+        results: [
+          { main: '+74.48%', label: 'GMV growth' },
+          { main: '$1.07M', label: 'Revenue (up from $616K)' },
+        ]
+      }
+    },
+    w3: {
+      num: '03',
+      ko: {
+        title: '메타 전환광고',
+        problem: `메타 전환광고 제작이 주어졌다. 대부분은 편집 품질을 높이는 방향으로 접근했다.`,
+        did: `편집 전에 먼저 질문을 세웠다.\n"왜 어떤 영상은 구매로 이어지고, 어떤 영상은 이탈로 끝나는가"\n\n전환 실패의 원인이 콘텐츠 품질이 아니라 초반 3초 내 이탈을 막는 구조의 부재라고 정의했다.\n\n경쟁 브랜드(medicube, ANUA 등) 전환광고를 벤치마크 분석해 고전환 영상의 공통 패턴을 도출했다.\n빠른 컷 전환 · 즉각적 결과 노출 · 화면 중앙 자막\n\n이 3가지 구조를 초반 3초에 집중 적용해 구매 링크 클릭까지의 흐름을 직접 설계하고 편집했다.`,
+        results: [
+          { main: '신입 1위', label: '신입 크리에이터 중 최상위' },
+          { main: '7위', label: '메타 전환광고 200개 중' },
+        ]
+      },
+      en: {
+        title: 'Meta Performance Ad',
+        problem: `The task was to produce a Meta conversion ad.\nMost approached it by focusing on improving edit quality.`,
+        did: `Before editing, I asked a different question:\n"Why do some videos lead to purchases, while others end in scroll-off?"\n\nDefined the root cause: not content quality, but the absence of a structure that prevents drop-off within the first 3 seconds.\n\nBenchmarked conversion ads from competing brands (medicube, ANUA, etc.) and extracted common patterns from high-converting videos:\nFast cuts · Immediate result reveal · Center-screen captions\n\nApplied all 3 structures in the first 3 seconds, and designed the full flow through to the purchase link click.`,
+        results: [
+          { main: '#1', label: 'Newcomer ranking' },
+          { main: 'Top 7', label: 'Out of 200 Meta ads' },
+        ]
+      }
+    }
+  };
+
+  let currentLang = 'ko';
+
+  /* ── LANG TOGGLE ── */
+  function toggleLang() {
+    currentLang = currentLang === 'ko' ? 'en' : 'ko';
+    const btn = document.getElementById('langBtn');
+    btn.textContent = currentLang === 'ko' ? 'EN' : 'KO';
+
+    document.querySelectorAll('[data-ko][data-en]').forEach(el => {
+      el.textContent = el.dataset[currentLang];
+    });
+
+    document.querySelectorAll('[data-lang]').forEach(el => {
+      el.style.display = el.dataset.lang === currentLang ? '' : 'none';
+    });
+  }
+
+  /* ── MODAL ── */
+  function openModal(id) {
+    const data = modals[id];
+    const d = data[currentLang];
+    const problemLines = d.problem.split('\n').map(l => `<p>${l}</p>`).join('');
+    const didLines = d.did.split('\n').map(l => l ? `<p>${l}</p>` : '<p>&nbsp;</p>').join('');
+    const resultsHtml = d.results.map(r => `
+      <div class="modal-result-item">
+        <div class="modal-result-main">${r.main}</div>
+        <div class="modal-result-label">${r.label}</div>
+      </div>`).join('');
+
+    document.getElementById('modalContent').innerHTML = `
+      <div class="modal-num">${data.num}</div>
+      <h2 class="modal-title">${d.title}</h2>
+      <div class="modal-section">
+        <div class="modal-section-label">${currentLang === 'ko' ? '문제' : 'Problem'}</div>
+        <div class="modal-section-body">${problemLines}</div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">${currentLang === 'ko' ? '내가 한 것' : 'What I Did'}</div>
+        <div class="modal-section-body">${didLines}</div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">${currentLang === 'ko' ? '결과' : 'Result'}</div>
+        <div class="modal-result-grid">${resultsHtml}</div>
+      </div>
+    `;
+
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeModalOnBg(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+</body>
+</html>
