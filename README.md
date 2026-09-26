@@ -2,7 +2,7 @@
 
 I’m **Phosynd (최관혁)**. I turn ambiguous work into systems people can use—through clear problem definitions, AI agent orchestration, and careful verification.
 
-**[Portfolio ↗](https://www.phosynd.com/en/)** · **[한국어 포트폴리오](https://www.phosynd.com/)** · **[Contact](mailto:phosynd@gmail.com)**
+**[Portfolio ↗](https://www.phosynd.com/en/)** · **[한국어 포트폴리오](https://www.phosynd.com/)** · **[LinkedIn](https://www.linkedin.com/in/kwanhyeok-choi-3b02a342b/)** · **[Contact](mailto:phosynd@gmail.com)**
 
 ### How I work
 
