@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="330" viewBox="0 0 1200 330" role="img" aria-labelledby="title desc">
+  <title id="title">Phosynd — AI systems, automation, product</title>
+  <desc id="desc">An ivory editorial banner with the Phosynd name and an abstract arrangement of graphite planes joined by a red line.</desc>
+  <rect width="1200" height="330" fill="#ECEAE4"/>
+  <path d="M56 40h32M56 40v16M1144 40h-32M1144 40v16M56 290h32M56 290v-16M1144 290h-32M1144 290v-16" fill="none" stroke="#AAA69D" stroke-width="1"/>
+  <path d="M60 248h590" stroke="#C9C5BA" stroke-width="1"/>
+  <path d="M60 248h80" stroke="#A83B2D" stroke-width="3"/>
+  <text x="60" y="99" fill="#69655D" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="16" letter-spacing="2.6">THINK · BUILD · VERIFY</text>
+  <text x="54" y="200" fill="#111113" font-family="-apple-system,BlinkMacSystemFont,Arial,Helvetica,sans-serif" font-size="106" font-weight="750" letter-spacing="-5">PHOSYND</text>
+  <text x="60" y="278" fill="#45433E" font-family="-apple-system,BlinkMacSystemFont,Arial,Helvetica,sans-serif" font-size="20" letter-spacing=".2">AI systems · automation · product</text>
+  <g fill="none" stroke="#111113" stroke-width="1.5" stroke-linejoin="round">
+    <path d="m791 214 120-139 151 53-120 139Z" fill="#DFDCD3"/>
+    <path d="m783 193 120-139 151 53-120 139Z" fill="#E7E4DB"/>
+    <path d="m775 172 120-139 151 53-120 139Z" fill="#F5F3ED"/>
+    <path d="m775 172 120-139v72l-120 139Z" fill="#18181B"/>
+    <path d="m775 244 151-19 120-139v72L926 297Z" fill="#D2CEC4"/>
+    <path d="m775 244 151-19v72Z" fill="#111113"/>
+  </g>
+  <path d="M704 211h121l102-119h178" fill="none" stroke="#A83B2D" stroke-width="3"/>
+  <circle cx="704" cy="211" r="4" fill="#A83B2D"/>
+  <circle cx="1105" cy="92" r="4" fill="#A83B2D"/>
+  <path d="M746 274h-32v-32M1081 46h32v32" fill="none" stroke="#AAA69D"/>
+</svg>
